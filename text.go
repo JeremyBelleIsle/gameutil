@@ -1,13 +1,28 @@
 package gameutil
 
 import (
+	"bytes"
 	"image/color"
+	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/examples/resources/fonts"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
 
-func DrawText(textV string, LetterSize int, StartX, StartY float64, lineJump float64, screen *ebiten.Image, clr color.RGBA) {
+var (
+	mplusFaceSource *text.GoTextFaceSource
+)
+
+func init() {
+	s, err := text.NewGoTextFaceSource(bytes.NewReader(fonts.PressStart2P_ttf))
+	if err != nil {
+		log.Fatal(err)
+	}
+	mplusFaceSource = s
+}
+
+func DrawText(textV string, LetterSize, screenWidth int, StartX, StartY float64, lineJump float64, screen *ebiten.Image, clr color.RGBA) {
 	x := StartX
 	y := StartY
 
