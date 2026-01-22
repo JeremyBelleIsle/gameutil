@@ -2,7 +2,7 @@ package gameutil
 
 import "math"
 
-func DirigePointToPoint(speed float32, x1, y1, x2, y2 float32) {
+func DirigePointToPoint(speed float32, x1, y1, x2, y2 float32) (float32, float32) {
 	if x1-float32(x2) < 0 {
 		x1 += speed
 	}
@@ -24,4 +24,6 @@ func DirigePointToPoint(speed float32, x1, y1, x2, y2 float32) {
 	if math.Abs(float64(y1)-float64(y2)) <= float64(speed) {
 		y1 = float32(y2)
 	}
+
+	return x1, y1
 }
