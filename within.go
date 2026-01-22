@@ -14,3 +14,9 @@ func CircleRectCollision(cx, cy, cr, rx, ry, rw, rh float64) bool {
 
 	return dx*dx+dy*dy <= cr*cr
 }
+
+func CircleCollision(x1, y1, r1, x2, y2, r2 float64) bool {
+	dx := x1 - x2
+	dy := y1 - y2
+	return dx*dx+dy*dy <= (r1+r2)*(r1+r2)
+}
