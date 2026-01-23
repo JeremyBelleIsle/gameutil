@@ -12,7 +12,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/audio/wav"
 )
 
-var audioContext *audio.Context
+var audioContext = audio.NewContext(44100)
 
 func LoadSound(path string) (*audio.Player, error) {
 	data, err := os.ReadFile(path)
