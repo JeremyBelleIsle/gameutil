@@ -3,27 +3,24 @@ package gameutil
 import "math"
 
 func DirigePointToPoint(speed float32, x1, y1, x2, y2 float32) (float32, float32) {
-	if x1-float32(x2) < 0 {
-		x1 += speed
-	}
-	if x1-float32(x2) > 0 {
-		x1 -= speed
+
+	dx := x2 - x1
+	dy := y2 - y1
+
+	distance := float32(math.Sqrt(float64(dx*dx + dy*dy)))
+
+	// Si déjà arrivé
+	if distance <= speed || distance == 0 {
+		return x2, y2
 	}
 
-	if math.Abs(float64(x1)-float64(x2)) <= float64(speed) {
-		x1 = float32(x2)
-	}
-	// y
-	if y1-float32(y2) < 0 {
-		y1 += speed
-	}
-	if y1-float32(y2) > 0 {
-		y1 -= speed
-	}
+	// Direction normalisée
+	dx /= distance
+	dy /= distance
 
-	if math.Abs(float64(y1)-float64(y2)) <= float64(speed) {
-		y1 = float32(y2)
-	}
+	// Avance proportionnelle
+	x1 += dx * speed
+	y1 += dy * speed
 
 	return x1, y1
 }

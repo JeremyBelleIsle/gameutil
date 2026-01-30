@@ -45,7 +45,3 @@ func LoadSound(path string) (*audio.Player, error) {
 		return nil, fmt.Errorf("unsupported audio extension %q", ext)
 	}
 }
-
-func main() {
-	audioContext = audio.NewContext(44100)
-}
