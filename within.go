@@ -20,3 +20,7 @@ func CircleCollision(x1, y1, r1, x2, y2, r2 float64) bool {
 	dy := y1 - y2
 	return dx*dx+dy*dy <= (r1+r2)*(r1+r2)
 }
+
+func RectColl(ax, ay, aw, ah, bx, by, bw, bh float64) bool {
+	return ax < bx+bw && ax+aw > bx && ay < by+bh && ay+ah > by
+}
