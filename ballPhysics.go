@@ -6,22 +6,22 @@ import (
 )
 
 type Platform struct {
-	x, y float64
-	w, h float64
-	clr  color.RGBA
+	X, Y float64
+	W, H float64
+	Clr  color.RGBA
 }
 
 func HorizontalCollisions(playerX, playerY, playerW, playerH float64, playerVelX *float64, platforms []Platform) float64 {
 	newX := playerX
 
 	for _, plat := range platforms {
-		if RectColl(playerX, playerY, playerW, playerH, plat.x, plat.y, plat.w, plat.h) {
+		if RectColl(playerX, playerY, playerW, playerH, plat.X, plat.Y, plat.W, plat.H) {
 
 			// 1. Calculer les chevauchements de chaque côté
-			overlapLeft := (playerX + playerW) - plat.x  // Combien le joueur rentre par la gauche
-			overlapRight := (plat.x + plat.w) - playerX  // Combien le joueur rentre par la droite
-			overlapTop := (playerY + playerH) - plat.y   // Combien le joueur rentre par le haut
-			overlapBottom := (plat.y + plat.h) - playerY // Combien le joueur rentre par le bas
+			overlapLeft := (playerX + playerW) - plat.X  // Combien le joueur rentre par la gauche
+			overlapRight := (plat.X + plat.W) - playerX  // Combien le joueur rentre par la droite
+			overlapTop := (playerY + playerH) - plat.Y   // Combien le joueur rentre par le haut
+			overlapBottom := (plat.Y + plat.H) - playerY // Combien le joueur rentre par le bas
 
 			// 2. Trouver le plus petit chevauchement
 			minOverlap := math.Min(
@@ -34,11 +34,11 @@ func HorizontalCollisions(playerX, playerY, playerW, playerH float64, playerVelX
 			// 3. Réagir selon le côté de la collision
 			switch minOverlap {
 			case overlapLeft: // Collision à gauche du mur
-				newX = plat.x - playerW
+				newX = plat.X - playerW
 				*playerVelX = -*playerVelX * bounceFactor
 
 			case overlapRight: // Collision à droite du mur
-				newX = plat.x + plat.w
+				newX = plat.X + plat.W
 				*playerVelX = -*playerVelX * bounceFactor
 
 			// Pour les collisions verticales, on ne fait rien ici
