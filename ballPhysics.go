@@ -11,8 +11,9 @@ type Platform struct {
 	Clr  color.RGBA
 }
 
-func HorizontalCollisions(playerX, playerY, playerW, playerH float64, playerVelX *float64, platforms []Platform) float64 {
+func PlatformCollisions(playerX, playerY, playerW, playerH float64, playerVelX *float64, playerVelY *float64, platforms []Platform) (float64, float64) {
 	newX := playerX
+	newY := playerY
 
 	for _, plat := range platforms {
 		if RectColl(playerX, playerY, playerW, playerH, plat.X, plat.Y, plat.W, plat.H) {
@@ -46,10 +47,11 @@ func HorizontalCollisions(playerX, playerY, playerW, playerH float64, playerVelX
 			case overlapTop:
 				// Tu pourrais gérer ça dans une fonction VerticalCollisions
 			case overlapBottom:
-				// Pareil
+				newY = plat.Y - playerH
+				*playerVelY = -*playerVelY * bounceFactor
 			}
 		}
 	}
 
-	return newX
+	return newX, newY
 }
