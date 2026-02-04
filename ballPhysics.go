@@ -23,7 +23,7 @@ func PlatformCollisions(playerX, playerY, playerW, playerH float64, playerVelX, 
 			} else if *playerVelX < 0 {
 				newX = p.X + p.W
 			}
-			*playerVelX = -*playerVelX * 0.7
+			*playerVelX = -*playerVelX * 0.6
 		}
 	}
 
@@ -35,7 +35,7 @@ func PlatformCollisions(playerX, playerY, playerW, playerH float64, playerVelX, 
 			} else if *playerVelY < 0 {
 				newY = p.Y + p.H
 			}
-			*playerVelY = -*playerVelY * 0.3
+			*playerVelY = -*playerVelY * 0.6
 		}
 	}
 
