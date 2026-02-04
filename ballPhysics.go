@@ -35,7 +35,7 @@ func PlatformCollisions(playerX, playerY, playerW, playerH float64, playerVelX, 
 			} else if *playerVelY < 0 {
 				newY = p.Y + p.H
 			}
-			*playerVelY = -*playerVelY * 0.7
+			*playerVelY = -*playerVelY * 0.3
 		}
 	}
 
