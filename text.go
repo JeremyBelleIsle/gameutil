@@ -35,12 +35,13 @@ func DrawText(textV string, LetterSize, screenWidth int, StartX, StartY float64,
 	currentWord := ""
 
 	for i := 0; i < len(textV); i++ {
-		if textV[i] == ' ' {
+		switch textV[i] {
+		case ' ':
 			if currentWord != "" {
 				words = append(words, currentWord)
 				currentWord = ""
 			}
-		} else if textV[i] == ';' {
+		case ';':
 			// Ajouter le mot actuel s'il existe
 			if currentWord != "" {
 				words = append(words, currentWord)
@@ -48,7 +49,7 @@ func DrawText(textV string, LetterSize, screenWidth int, StartX, StartY float64,
 			}
 			// Ajouter le point comme un marqueur spécial
 			words = append(words, ";")
-		} else {
+		default:
 			currentWord += string(textV[i])
 		}
 	}
