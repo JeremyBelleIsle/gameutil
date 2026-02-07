@@ -10,16 +10,16 @@ type Platform struct {
 	Clr  color.RGBA
 }
 
-func PlatformCollisions(playerX, playerY, playerW, playerH float64, playerVelX, playerVelY *float64, platforms []Platform) (float64, float64) {
+func PlatformCollisions(playerX, playerY, playerR float64, playerVelX, playerVelY *float64, platforms []Platform) (float64, float64) {
 
 	newX := playerX + *playerVelX
 	newY := playerY + *playerVelY
 
 	// ===== X AXIS =====
 	for _, p := range platforms {
-		if RectColl(newX, playerY, playerW, playerH, p.X, p.Y, p.W, p.H) {
+		if CircleRectCollision(newX, playerY, playerR, p.X, p.Y, p.W, p.H) {
 			if *playerVelX > 0 {
-				newX = p.X - playerW
+				newX = p.X - playerR
 			} else if *playerVelX < 0 {
 				newX = p.X + p.W
 			}
@@ -29,9 +29,9 @@ func PlatformCollisions(playerX, playerY, playerW, playerH float64, playerVelX, 
 
 	// ===== Y AXIS =====
 	for _, p := range platforms {
-		if RectColl(newX, newY, playerW, playerH, p.X, p.Y, p.W, p.H) {
+		if CircleRectCollision(newX, newY, playerR, p.X, p.Y, p.W, p.H) {
 			if *playerVelY > 0 {
-				newY = p.Y - playerH
+				newY = p.Y - playerR
 			} else if *playerVelY < 0 {
 				newY = p.Y + p.H
 			}
