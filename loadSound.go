@@ -12,9 +12,9 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/audio/wav"
 )
 
-var audioContext = audio.NewContext(44100)
+func LoadSound(sampleRate int, path string) (*audio.Player, error) {
 
-func LoadSound(path string) (*audio.Player, error) {
+	var audioContext = audio.NewContext(sampleRate)
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("cannot read %q: %w", path, err)
@@ -25,7 +25,7 @@ func LoadSound(path string) (*audio.Player, error) {
 	switch ext {
 
 	case ".wav":
-		stream, err := wav.DecodeWithSampleRate(44000, bytes.NewReader(data))
+		stream, err := wav.DecodeWithSampleRate(sampleRate, bytes.NewReader(data))
 		// stream, err := wav.Decode(audioContext, bytes.NewReader(data))
 		if err != nil {
 			return nil, fmt.Errorf("cannot decode wav %q: %w", path, err)
@@ -35,7 +35,7 @@ func LoadSound(path string) (*audio.Player, error) {
 		// return audio.NewPlayer(audioContext, stream)
 
 	case ".mp3":
-		stream, err := mp3.DecodeWithSampleRate(44100, bytes.NewReader(data))
+		stream, err := mp3.DecodeWithSampleRate(sampleRate, bytes.NewReader(data))
 		if err != nil {
 			return nil, fmt.Errorf("cannot decode mp3 %q: %w", path, err)
 		}
