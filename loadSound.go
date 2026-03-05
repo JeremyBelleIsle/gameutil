@@ -12,9 +12,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/audio/wav"
 )
 
-func LoadSound(sampleRate int, path string) (*audio.Player, error) {
-
-	var audioContext = audio.NewContext(sampleRate)
+func LoadSound(sampleRate int, audioContext *audio.Context, path string) (*audio.Player, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("cannot read %q: %w", path, err)
