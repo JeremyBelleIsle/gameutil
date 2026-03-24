@@ -70,6 +70,6 @@ func DrawText(textV string, LetterSize, screenWidth int, StartX, StartY float64,
 			Size:   float64(LetterSize),
 		}, op)
 
-		x += wordWidth + 10
+		x += wordWidth + float64(LetterSize)*0.5
 	}
 }
