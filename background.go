@@ -7,7 +7,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
-func generateBackgroundWithDegraded(screen *ebiten.Image, principalColor color.RGBA64, screenWidth, screenHeight float64, VOrH string) {
+func GenerateBackgroundWithDegraded(screen *ebiten.Image, principalColor color.RGBA64, screenWidth, screenHeight float64, VOrH string) {
 
 	currentColor := color.RGBA64{principalColor.R / 2, principalColor.G / 2, principalColor.B / 2, principalColor.A / 2}
 
@@ -35,7 +35,7 @@ func generateBackgroundWithDegraded(screen *ebiten.Image, principalColor color.R
 	}
 }
 
-func generateBackgroundWithDegradedCircle(screen *ebiten.Image, principalColor color.RGBA64, screenWidth, screenHeight float64) {
+func GenerateBackgroundWithDegradedCircle(screen *ebiten.Image, principalColor color.RGBA64, screenWidth, screenHeight float64) {
 	maxRadius := screenHeight
 	if screenWidth < screenHeight {
 		maxRadius = screenWidth
