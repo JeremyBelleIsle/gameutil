@@ -1,0 +1,68 @@
+import (
+	"image/color"
+	"math"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/vector"
+)
+
+// CreateTriangleImage génère une nouvelle image contenant un triangle plein.
+// Les sommets (x1, y1...), sont relatifs à l'origine du triangle.
+func CreateTriangleImage(x1, y1, x2, y2, x3, y3 float32, clr color.Color) *ebiten.Image {
+	// 1. Trouver les bornes (bounding box) pour connaître la taille de l'image à créer
+	minX := min(x1, x2, x3)
+	maxX := max(x1, x2, x3)
+	minY := min(y1, y2, y3)
+	maxY := max(y1, y2, y3)
+
+	width := int(math.Ceil(float64(maxX - minX)))
+	height := int(math.Ceil(float64(maxY - minY)))
+
+	// Éviter de créer une image de 0x0
+	if width <= 0 {
+		width = 1
+	}
+	if height <= 0 {
+		height = 1
+	}
+
+	// 2. Créer l'image de destination
+	img := ebiten.NewImage(width, height)
+
+	// 3. Dessiner le triangle sur cette image
+	// On applique un offset (-minX, -minY) pour que le triangle soit dans le cadre [0,0, W, H]
+	var path vector.Path
+	path.MoveTo(x1-minX, y1-minY)
+	path.LineTo(x2-minX, y2-minY)
+	path.LineTo(x3-minX, y3-minY)
+	path.Close()
+
+	// Remplissage blanc sur l'image (on utilise la couleur passée en argument)
+	// Note: antiAlias true permet d'avoir des bords lisses
+	vector.DrawFilledPath(img, path, clr, true)
+
+	return img
+}
+
+// Fonctions utilitaires pour le calcul des bornes
+func min(a, b, c float32) float32 {
+	res := a
+	if b < res {
+		res = b
+	}
+	if c < res {
+		res = c
+	}
+	return res
+}
+
+func max(a, b, c float32) float32 {
+	res := a
+	if b > res {
+		res = b
+	}
+	if c > res {
+		res = c
+	}
+	return res
+}
